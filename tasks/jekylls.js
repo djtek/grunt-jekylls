@@ -15,7 +15,7 @@ var path = require('path'),
 	_ = util._;
 
 function dasherizeStamp(date) {
-	return [date.getFullYear(), date.getMonth(), date.getDate()].join('-');
+	return [date.getFullYear(), date.getMonth()+1, date.getDate()].join('-');
 }
 
 module.exports = function(grunt) {

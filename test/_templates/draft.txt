@@ -1,0 +1,5 @@
+---
+layout: page_layout
+title: <%= title %>
+date: <%= date %>
+---

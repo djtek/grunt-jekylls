@@ -45,7 +45,7 @@ A string value that is used to find a template.
 
 #### options.dest
 Type: `String`
-Default value: `'/[target]'`
+Default value: `'_[target]'`
 
 A string value that is used as the destination path for target outputs files.
 
@@ -59,9 +59,9 @@ Note: this options can be passed per target (overriding task options)
 
 #### target.locals
 Type: `Object`
-Default value: `null`
+Default value: `{}`
 
-An object value that will be available inside layouts ````<%= key %>````.
+A template's locals object accessible with ````<%= %>```` delimiters.
 
 ### Usage Examples
 

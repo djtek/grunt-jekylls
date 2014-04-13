@@ -34,7 +34,7 @@ module.exports = function(grunt) {
 			},
 			// data targets
 			post: {
-				formatter: {
+				locals: {
 					layout: 'post',
 					comments: true
 				},
@@ -45,7 +45,7 @@ module.exports = function(grunt) {
 				}
 			},
 			draft: {
-				formatter: {
+				locals: {
 					layout: 'draft'
 				},
 				options: {

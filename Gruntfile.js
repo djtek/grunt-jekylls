@@ -27,17 +27,17 @@ module.exports = function(grunt) {
 		clean: {
 			tests: ['tmp'],
 		},
-		jekylls : {
+		jekylls: {
 			// shared config
 			options: {
-				expand: true,
-				cwd: '.',
 				ext: '.md', //optional, defaults to markdown
-				extDot: 'first',
-				flatten: true
 			},
 			// data targets
 			post: {
+				formatter: {
+					layout: 'post',
+					comments: true
+				},
 				options: {
 					// specific config. Overrides shared options
 					src: 'test/_templates/post.txt', //required
@@ -45,15 +45,14 @@ module.exports = function(grunt) {
 				}
 			},
 			draft: {
+				formatter: {
+					layout: 'draft'
+				},
 				options: {
 					// specific config. Overrides shared options
-					expand: true,
-					cwd: '.',
 					src: 'test/_templates/draft.txt', //required
 					dest: 'tmp/_drafts',
-					ext: '.md', //optional, defaults to markdown
-					extDot: 'first',
-					flatten: true
+					ext: '.txt', //optional, defaults to markdown
 				}
 			}
 		},

@@ -1,11 +1,11 @@
 'use strict';
 var fs = require('fs'),
-	path = require('path'),
-	grunt = require('grunt'),
-	util = grunt.util,
-	async = util.async,
-	_ = util._;
-
+path = require('path'),
+grunt = require('grunt'),
+util = grunt.util,
+async = util.async,
+_ = util._,
+config;
 /*
 ======== A Handy Little Nodeunit Reference ========
 https://github.com/caolan/nodeunit
@@ -27,32 +27,35 @@ test.ifError(value)
 */
 function parseFileName(name) {
 	var parts = name.split('-'),
-		date = parts.slice(0,3).join('-'),
-		baseName = parts.slice(3).join(' '),
-		title = path.basename(baseName, path.extname(baseName));
+	date = parts.slice(0,3).join('-'),
+	baseName = parts.slice(3).join(' '),
+	title = path.basename(baseName, path.extname(baseName));
 	
 	return {filename: name, data: {title: title, date: date}};
 }
 exports.jekylls = {
 	setUp: function(done) {
 		// setup here if necessary
+		config = grunt.config.get('jekylls');
 		done();
 	},
 	test_draft: function (test) {
 		var drafts = fs.readdirSync('tmp/_drafts'),
-			options = parseFileName(drafts[0]),
-			templatePath = path.join(__dirname,'_templates/draft.txt'),
-			template = grunt.file.read(templatePath);
+		options = parseFileName(drafts[0]),
+		templatePath = path.join(__dirname,'_templates/draft.txt'),
+		template = grunt.file.read(templatePath);
 		
+		_.extend(options.data, config.draft.locals);
 		test.equal(grunt.file.read(path.join('tmp/_drafts', options.filename)), _.template(template, options.data));
 		test.done();
 	},
 	test_post: function (test) {
 		var posts = fs.readdirSync('tmp/_posts'),
-			options = parseFileName(posts[0]),
-			templatePath = path.join(__dirname,'_templates/post.txt'),
-			template = grunt.file.read(templatePath);
-		
+		options = parseFileName(posts[0]),
+		templatePath = path.join(__dirname,'_templates/post.txt'),
+		template = grunt.file.read(templatePath);
+			
+		_.extend(options.data, config.post.locals);
 		test.equal(grunt.file.read(path.join('tmp/_posts', options.filename)), _.template(template, options.data));
 		test.done();
 	}

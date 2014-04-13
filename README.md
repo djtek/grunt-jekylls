@@ -37,48 +37,62 @@ grunt.initConfig({
 
 ### Options
 
-#### options.separator
+#### options.src
 Type: `String`
-Default value: `',  '`
+Required
 
-A string value that is used to do something with whatever.
+A string value that is used to find a template.
 
-#### options.punctuation
+#### options.dest
 Type: `String`
-Default value: `'.'`
+Default value: `'/[target]'`
 
-A string value that is used to do something else with whatever else.
+A string value that is used as the destination path for target outputs files.
+
+#### options.ext
+Type: `String`
+Default value: `'.markdown'`
+
+A string value that is used as the extension for target outputs files.
+
+Note: this options can be passed per target (overriding task options)
+
+#### target.locals
+Type: `Object`
+Default value: `null`
+
+An object value that will be available inside layouts ````<%= key %>````.
 
 ### Usage Examples
 
 #### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
-
+In this example, ````'_templates/post.txt'```` will be copied over to ````_post/yyyy-mm-dd-title-argument.markdown````. In addition, the template will be compiled with title, and date locals.
 ```js
 grunt.initConfig({
-  jekylls: {
-    options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
+	post: {
+		options: {
+			src: '_templates/post.txt',
+		}
+	}
 });
 ```
 
 #### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
-
+In this example, ````'_templates/draft.txt'```` will be copied over to ````_drafts/yyyy-mm-dd-title-argument.txt````. In addition, 
+the template will be compiled with title, date, layout, and comments locals.
 ```js
 grunt.initConfig({
-  jekylls: {
-    options: {
-      separator: ': ',
-      punctuation: ' !!!',
-    },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
+	draft: {
+		locals: {
+			layout: 'draft',
+			comments: true
+		},
+		options: {
+			src: '_templates/draft.txt',
+			dest: '_drafts', // defaults to '_draft'
+			ext: '.txt'
+		}
+	}
 });
 ```
 

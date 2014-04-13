@@ -1,7 +1,7 @@
 {
   "name": "grunt-jekylls",
   "description": "Jekyll file generator",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "homepage": "https://github.com/djtek/grunt-jekylls",
   "author": {
     "name": "Luciano P. Altube"
